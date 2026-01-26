@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "TextureManager.h"
 
-Player::Player(TextureManager& textures) : m_textures(textures), lives(3)
+Player::Player(TextureManager& textures, int windowHeight) : m_textures(textures), windowHeight(windowHeight), lives(3)
 {
     m_texture = textures.GetTexture("C:/dev/Darker/assets/sprites/player.png");
 }

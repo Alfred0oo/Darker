@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "TextureManager.h"
 
-Level::Level(TextureManager& textures) : m_textures(textures)
+Level::Level(TextureManager& textures, int length, int windowHeight) : m_textures(textures), length(length), windowHeight(windowHeight)
 {
     m_tileset = m_textures.GetTexture("C:/dev/Darker/assets/tiles/grass_block.png");
 
@@ -20,7 +20,7 @@ void Level::LoadTiles()
             const float tileSize = 32.0f;
             Tile t;
             t.x = x * tileSize;
-            t.y = y * tileSize;
+            t.y = windowHeight - tileSize;
             t.width = tileSize;
             t.height = tileSize;
             t.tileIndex = 0; // only one tile for now
@@ -38,10 +38,12 @@ void Level::Update(float deltaTime)
 void Level::Render(SDL_Renderer* renderer)
 {
     if (!m_tileset) return;
-
-    for (const auto& tile : m_tiles)
+    for (auto i{0}; i < length; i++)
     {
-        SDL_FRect dst = { tile.x, tile.y, tile.width, tile.height };
-        SDL_RenderTexture(renderer, m_tileset, nullptr, &dst);
+        for (const auto& tile : m_tiles)
+        {
+            SDL_FRect dst = { static_cast<float>(i) * tile.width, tile.y, tile.width, tile.height };
+            SDL_RenderTexture(renderer, m_tileset, nullptr, &dst);
+        }
     }
 }

@@ -7,6 +7,9 @@
 #include "SDL3/SDL_timer.h"
 #include "iostream"
 
+#define WIDTH 1280
+#define HEIGHT 720
+
 Application::Application() :
 m_window(nullptr),
 m_renderer(nullptr),
@@ -30,7 +33,7 @@ bool Application::Init()
         return false;
     }
     bool success = SDL_CreateWindowAndRenderer(
-          "The Dark Game", 1000, 900, SDL_WINDOW_RESIZABLE, &m_window, &m_renderer);
+          "The Dark Game", WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE, &m_window, &m_renderer);
 
     if (success == false) {
         SDL_Log("Failed to initialize window or renderer: %s", SDL_GetError());
@@ -45,8 +48,8 @@ bool Application::Init()
         return false;
     }
 
-    m_player = new Player(*m_textures);
-    m_level = new Level(*m_textures);
+    m_player = new Player(*m_textures, HEIGHT);
+    m_level = new Level(*m_textures, 100, HEIGHT);
 
     return true;
 }
@@ -65,10 +68,25 @@ void Application::Run()
             case SDL_EVENT_QUIT:
                 running = false;
             case SDL_EVENT_KEY_DOWN:
-                if (event.key.key == SDLK_ESCAPE)
+                switch (event.key.key)
                 {
+                    case SDLK_ESCAPE:
                     running = false;
+                    break;
+                    case SDLK_A:
+                        {
+                            m_player->SetVelocity(-100.0f, 0.0f);
+                            break;
+                        }
+                    case SDLK_D:
+                        {
+                            m_player->SetVelocity(100.0f, 0.0f);
+                            break;
+                        }
                 }
+                case SDL_EVENT_KEY_UP:
+                SDL_Log("SDL_EVENT_KEY_UP");
+                //m_player->SetVelocity(0.0f, 0.0f);
             }
         }
         float deltaTime = CalculateDeltaTime();
@@ -81,8 +99,6 @@ void Application::Run()
         Render();
 
         SDL_RenderPresent(m_renderer);
-
-        LimitFrameRate(deltaTime);
     }
 }
 
@@ -148,13 +164,4 @@ float Application::CalculateDeltaTime()
     if (delta > 0.1f) delta = 0.1f;
 
     return delta;
-}
-
-void Application::LimitFrameRate(float deltaTime)
-{
-    if (deltaTime > m_targetDelta)
-    {
-        Uint64 delayMs = static_cast<Uint32>((m_targetDelta - deltaTime) * 1000.0f);
-        SDL_Delay(delayMs);
-    }
 }

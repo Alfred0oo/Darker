@@ -8,7 +8,7 @@ class TextureManager;
 class Player
 {
 public:
-    explicit Player(TextureManager& textureManager);
+    explicit Player(TextureManager& textureManager, int windowHeight);
 
     Player(const Player&) = delete;
     Player& operator=(const Player&) = delete;
@@ -25,11 +25,12 @@ public:
 private:
     TextureManager& m_textures;
     SDL_Texture* m_texture = nullptr;
+    int windowHeight;
 
-    float m_x = 100.0f;
-    float m_y = 100.0f;
     float m_width = 32.0f;
     float m_height = 32.0f;
+    float m_x = 0.0f;
+    float m_y = static_cast<float>(windowHeight - 64);
 
     float m_vx = 0.0f;
     float m_vy = 0.0f;

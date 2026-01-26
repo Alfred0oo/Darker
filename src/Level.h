@@ -9,7 +9,7 @@ class TextureManager;
 class Level
 {
 public:
-    explicit Level(TextureManager& textures);
+    explicit Level(TextureManager& textures, int length, int windowHeight);
 
     Level(const Level&) = delete;
     Level& operator=(const Level&) = delete;
@@ -18,6 +18,8 @@ public:
     void Render(SDL_Renderer* renderer);
 private:
     TextureManager& m_textures;
+    int length;
+    int windowHeight;
 
     SDL_Texture* m_tileset = nullptr;
     struct Tile

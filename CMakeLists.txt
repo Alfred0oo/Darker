@@ -14,8 +14,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 add_subdirectory(vendored/SDL EXCLUDE_FROM_ALL)
 add_subdirectory(vendored/SDL_image EXCLUDE_FROM_ALL)
 
-add_executable(${PROJECT_NAME} 
-    src/main.cpp 
+add_executable(${PROJECT_NAME}
     vendored/imgui/imgui.cpp
     vendored/imgui/imgui_draw.cpp
     vendored/imgui/imgui_demo.cpp
@@ -23,6 +22,7 @@ add_executable(${PROJECT_NAME}
     vendored/imgui/imgui_impl_sdlrenderer3.cpp
     vendored/imgui/imgui_tables.cpp
     vendored/imgui/imgui_widgets.cpp
+        src/main.cpp
         src/Player.cpp
         src/Player.h
         src/Level.cpp
@@ -31,6 +31,7 @@ add_executable(${PROJECT_NAME}
         src/TextureManager.h
         src/Application.cpp
         src/Application.h
+        src/Application.cpp
         src/Application.cpp
 )
 
