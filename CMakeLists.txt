@@ -31,8 +31,8 @@ add_executable(${PROJECT_NAME}
         src/TextureManager.h
         src/Application.cpp
         src/Application.h
-        src/Application.cpp
-        src/Application.cpp
+        src/Input.cpp
+        src/Input.h
 )
 
 # Link to the actual SDL3 library.

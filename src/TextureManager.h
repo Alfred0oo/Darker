@@ -1,5 +1,5 @@
-#ifndef TEXTUREMANAGER_H
-#define TEXTUREMANAGER_H
+#ifndef DARK_GAME_TEXTUREMANAGER_H
+#define DARK_GAME_TEXTUREMANAGER_H
 #include <string>
 #include <unordered_map>
 
@@ -22,4 +22,4 @@ private:
     std::unordered_map<std::string, SDL_Texture*> m_textures;
 };
 
-#endif //TEXTUREMANAGER_H
+#endif //DARK_GAME_TEXTUREMANAGER_H

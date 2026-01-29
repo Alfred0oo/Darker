@@ -63,32 +63,15 @@ void Application::Run()
     {
         while (SDL_PollEvent(&event))
         {
-            switch (event.type)
+            if (event.type == SDL_EVENT_QUIT || (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_ESCAPE))
             {
-            case SDL_EVENT_QUIT:
                 running = false;
-            case SDL_EVENT_KEY_DOWN:
-                switch (event.key.key)
-                {
-                    case SDLK_ESCAPE:
-                    running = false;
-                    break;
-                    case SDLK_A:
-                        {
-                            m_player->SetVelocity(-100.0f, 0.0f);
-                            break;
-                        }
-                    case SDLK_D:
-                        {
-                            m_player->SetVelocity(100.0f, 0.0f);
-                            break;
-                        }
-                }
-                case SDL_EVENT_KEY_UP:
-                SDL_Log("SDL_EVENT_KEY_UP");
-                //m_player->SetVelocity(0.0f, 0.0f);
             }
         }
+
+
+
+
         float deltaTime = CalculateDeltaTime();
 
         Update(deltaTime);

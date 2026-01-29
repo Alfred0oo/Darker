@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef DARK_GAME_PLAYER_H
+#define DARK_GAME_PLAYER_H
 
 #include "TextureManager.h"
 
@@ -38,4 +38,4 @@ private:
     int lives{};
 };
 
-#endif //PLAYER_H
+#endif //DARK_GAME_PLAYER_H

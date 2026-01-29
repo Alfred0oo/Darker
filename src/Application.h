@@ -1,5 +1,5 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef DARK_GAME_APPLICATION_H
+#define DARK_GAME_APPLICATION_H
 #include "Level.h"
 #include "TextureManager.h"
 #include "SDL3/SDL.h"
@@ -41,4 +41,4 @@ private:
     const float m_targetDelta = 1.0f / 60.0f;
 };
 
-#endif //APPLICATION_H
+#endif //DARK_GAME_APPLICATION_H

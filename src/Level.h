@@ -1,5 +1,5 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#ifndef DARK_GAME_LEVEL_H
+#define DARK_GAME_LEVEL_H
 #include <vector>
 #include <string>
 #include "SDL3/SDL.h"
@@ -32,4 +32,4 @@ private:
 
     void LoadTiles();
 };
-#endif //LEVEL_H
+#endif //DARK_GAME_LEVEL_H
