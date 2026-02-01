@@ -1,0 +1,4 @@
+#ifndef DARK_GAME_CONSTANTS_H
+#define DARK_GAME_CONSTANTS_H
+const int g_BLOCKSIZE = 32;
+#endif //DARK_GAME_CONSTANTS_H

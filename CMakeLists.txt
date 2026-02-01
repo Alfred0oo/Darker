@@ -33,6 +33,7 @@ add_executable(${PROJECT_NAME}
         src/Application.h
         src/Input.cpp
         src/Input.h
+        src/Constants.h
 )
 
 # Link to the actual SDL3 library.

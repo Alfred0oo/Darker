@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Player.h"
 #include "Level.h"
+#include "Input.h"
 
 #include "SDL3_image/SDL_image.h"
 #include "SDL3/SDL_log.h"
@@ -35,6 +36,8 @@ bool Application::Init()
     bool success = SDL_CreateWindowAndRenderer(
           "The Dark Game", WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE, &m_window, &m_renderer);
 
+    SDL_SetRenderVSync(m_renderer, -1);
+
     if (success == false) {
         SDL_Log("Failed to initialize window or renderer: %s", SDL_GetError());
         return false;
@@ -48,8 +51,9 @@ bool Application::Init()
         return false;
     }
 
-    m_player = new Player(*m_textures, HEIGHT);
+    m_player = new Player(*m_textures, HEIGHT, WIDTH);
     m_level = new Level(*m_textures, 100, HEIGHT);
+    m_inputs = new InputHandler();
 
     return true;
 }
@@ -58,19 +62,24 @@ void Application::Run()
 {
     bool running = true;
     SDL_Event event;
+    const int FPS = 60;
+    const int frameDelay = 1000 / FPS;
+    Uint32 frameStart;
+    int frameTime;
 
     while (running)
     {
+        frameStart = SDL_GetTicks();
         while (SDL_PollEvent(&event))
         {
-            if (event.type == SDL_EVENT_QUIT || (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_ESCAPE))
+            if (event.type == SDL_EVENT_QUIT || event.key.key == SDLK_ESCAPE)
             {
                 running = false;
             }
         }
 
-
-
+        const bool* keyStates = SDL_GetKeyboardState(nullptr);
+        m_inputs->HandleInputs(keyStates, *m_player);
 
         float deltaTime = CalculateDeltaTime();
 
@@ -82,6 +91,11 @@ void Application::Run()
         Render();
 
         SDL_RenderPresent(m_renderer);
+        frameTime = SDL_GetTicks() - frameStart;
+        if (frameTime < frameDelay)
+        {
+            SDL_Delay(frameDelay - frameTime);
+        }
     }
 }
 
@@ -111,8 +125,9 @@ void Application::Update(float deltaTime)
 
 void Application::Render()
 {
+    Uint32 frame = SDL_GetTicks() / 250 % 4;
     if (m_level) m_level->Render(m_renderer);
-    if (m_player) m_player->Render(m_renderer);
+    if (m_player) m_player->Render(m_renderer, frame);
 }
 
 bool Application::LoadResources() const

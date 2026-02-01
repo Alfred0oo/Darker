@@ -1,11 +1,13 @@
 #ifndef DARK_GAME_APPLICATION_H
 #define DARK_GAME_APPLICATION_H
+#include "Input.h"
 #include "Level.h"
 #include "TextureManager.h"
 #include "SDL3/SDL.h"
 
 class Player;
 class Level;
+class Input;
 
 class Application
 {
@@ -35,6 +37,7 @@ private:
 
     Player* m_player = nullptr;
     Level* m_level = nullptr;
+    InputHandler* m_inputs = nullptr;
 
     Uint64 m_lastCounter = 0;
     const Uint64 m_frequency = SDL_GetPerformanceFrequency();
